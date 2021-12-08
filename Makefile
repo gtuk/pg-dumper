@@ -5,6 +5,8 @@ help:
 
 docker-build: ## Build all docker images
 	docker login
+	@echo "Building image for postgres-11.5"
+	docker build --no-cache --build-arg PG_VERSION=11.5 -t gtuk/pg-dumper:postgres-11.5 .
 	@echo "Building image for postgres-11.14"
 	docker build --no-cache --build-arg PG_VERSION=11.14 -t gtuk/pg-dumper:postgres-11.14 .
 	@echo "Building image for postgres-12.9"
@@ -15,6 +17,8 @@ docker-build: ## Build all docker images
 	docker build --no-cache --build-arg PG_VERSION=14.1 -t gtuk/pg-dumper:postgres-14.1 .
 
 docker-publish: docker-build ## Publish all docker images
+	@echo "Pushing image gtuk/pg-dumper/postgres-11.5"
+	docker push gtuk/pg-dumper:postgres-11.5
 	@echo "Pushing image gtuk/pg-dumper/postgres-11.14"
 	docker push gtuk/pg-dumper:postgres-11.14
 	@echo "Pushing image gtuk/pg-dumper/postgres-12.9"
